@@ -39,12 +39,12 @@ Run!
 
 ## Solver Details
 There are a few options we can toggle while solving a particular puzzle, toggled by a True or False:
-    - use_symmetry: Enforce the puzzle's symmetry.
-    - use_starting_square: Enforce the puzzle's starting square.
-    - find_all: Find every single solution.
-    - use_interconnected: Enforce that every clue 'connects' to every other clue.
-    - show_numbers: Show the clue numbers in the final solution (versus the clue values).
-    - debug: Every iteration, print out the grid and some useful info. Can also be used as visualization.
+- use_symmetry: Enforce the puzzle's symmetry.
+- use_starting_square: Enforce the puzzle's starting square.
+- find_all: Find every single solution.
+- use_interconnected: Enforce that every clue 'connects' to every other clue.
+- show_numbers: Show the clue numbers in the final solution (versus the clue values).
+- debug: Every iteration, print out the grid and some useful info. Can also be used as visualization.
 
 ## Symmetries
 Most crosswords exhibit 'Rotational' symmetry, however this solver allows for a few different kinds of symmetry, laid out here:
