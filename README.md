@@ -10,20 +10,20 @@ This builder tackles ONLY the second part, without considering clues or clue ans
 
 Look at the 3x3 and 4x4 puzzles as examples below, where the only info we have is the clues' orientation and the size of the grid:
 
-'''
+~~~
 Across +  Down  +  Empty Grid    ->         Solution
   1         1        _ _ _            1 2 3          Z D D
   4         2        _ _ _       ->   4 - -    or    A - -
   5         3        _ _ _            5 - -          A - -
-'''
+~~~
 
-'''
+~~~
  Across +  Down  +  Empty Grid   ->         Solution
   1         1        _ _ _ _          ▇ 1 2 3       ▇ Z D D
   4         2        _ _ _ _     ->   4 - - -   or  Z - - -
   5         3        _ _ _ _          5 - - -       A - - -
   6         4        _ _ _ _          6 - - ▇       A - - ▇
- '''
+~~~
 
 Diagramless crossword puzzles tend to give some hints, which can be added as parameters:
     - Does the puzzle have symmetry?
