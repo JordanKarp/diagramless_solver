@@ -48,16 +48,16 @@ There are a few options we can toggle while solving a particular puzzle, toggled
 
 ## Symmetries
 Most crosswords exhibit 'Rotational' symmetry, however this solver allows for a few different kinds of symmetry, laid out here:
-    - Rotational: Also known as Standard Crossword Symmetry or 180˚ Rotational Symmetry, every white and black square has a counterpart by spinning a half turn about it's central point.
-    - Left Right: Also known as mirror symmetry, every white and black square has a counterpart across the puzzle's central vertical axis.
-    - Up Down: Every white and black square has a counterpart across the puzzle's central horizontal axis.
-    - Diagonal (Top Left Start): Every white and black square has a mirror counterpart across the puzzle's diagonal axis, from the top left to the bottom right.
-    - Diagonal (Top Right Start): Every white and black square has a mirror counterpart across the puzzle's diagonal axis, from the top right to the bottom left.
-    - Dual Rotational: Building on Rotational Symmetry, every white and black square has counterparts by spinning a quarter turn, a half turn, and a three quarter turn about it's central point.
-    - Three Way: Left Right, Up Down and Rotational Symmetries, all combined. With the exception of the central row and column, every white and black square has three symmetrical counterparts.
-    - Super: Left Right, Up Down, Rotational, Dual Rotational and both Diagonal Symmetries, all combined.
-    - Asymmetry: No Symmetry.
+- Rotational: Also known as Standard Crossword Symmetry or 180˚ Rotational Symmetry, every white and black square has a counterpart by spinning a half turn about it's central point.
+- Left Right: Also known as mirror symmetry, every white and black square has a counterpart across the puzzle's central vertical axis.
+- Up Down: Every white and black square has a counterpart across the puzzle's central horizontal axis.
+- Diagonal (Top Left Start): Every white and black square has a mirror counterpart across the puzzle's diagonal axis, from the top left to the bottom right.
+- Diagonal (Top Right Start): Every white and black square has a mirror counterpart across the puzzle's diagonal axis, from the top right to the bottom left.
+- Dual Rotational: Building on Rotational Symmetry, every white and black square has counterparts by spinning a quarter turn, a half turn, and a three quarter turn about it's central point.
+- Three Way: Left Right, Up Down and Rotational Symmetries, all combined. With the exception of the central row and column, every white and black square has three symmetrical counterparts.
+- Super: Left Right, Up Down, Rotational, Dual Rotational and both Diagonal Symmetries, all combined.
+- Asymmetry: No Symmetry.
 
 ## More info
-    Check out the tech_breakdown.md for a bit more info about how this program works.
-    Check out the background.md for a bit of my personal experience with this problem.
+- Check out the tech_breakdown.md for a bit more info about how this program works.
+- Check out the background.md for a bit of my personal experience with this problem.
