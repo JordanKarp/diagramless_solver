@@ -3,8 +3,8 @@
 A diagramless crossword puzzle is similar to a (American-style) crossword puzzle and folllows all the same rules. However the locations of the clue numbers and shaded (BLACK) squares are unspecified. Essentially, you're provided a blank grid and clues.
 
 A human diagramless crossword solver must deduce two things:
-    1. The word answers to individual clues
-    2. The locations to the specific clue numbers, shaded (BLACK) squares, and empty squares.
+1. The word answers to individual clues
+2. The locations to the specific clue numbers, shaded (BLACK) squares, and empty squares.
 
 This builder tackles ONLY the second part, without considering clues or clue answers whatsoever. It will soley look at the clue numbers and whether they are an Across (A) clue, a Down (D) clue, or both (Z).
 
