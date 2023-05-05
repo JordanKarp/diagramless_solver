@@ -35,28 +35,26 @@ class Grid:
         return self.pRow >= self.size[0] - 1
 
     def is_interconnected(self):
-        '''
-        in_group = set()
-        Get first non black square, add to in group
-        for value in in_group:
-            For U1, D1, L1, R1:
-                if val is not black and not in in_group:
-                    add pointer to in_group
-
-        for each value in the grid,
-            if its a clue,
-                if its not in in_group
-                    return false
-
-        return True
-        '''
-        connected_group = set()
+        connected_group = []
         row, col = 0, 0
-        while self.get_at((row, col)) != Value.BLACK:
+        while self.get_at((row, col)) == Value.BLACK:
             col += 1
+        connected_group.append((row, col))
+        for (row, col) in connected_group:
+            if self.get_at((row-1, col)) != Value.BLACK and (row-1, col) not in connected_group:
+                connected_group.append((row-1, col))
+            if self.get_at((row+1, col)) != Value.BLACK and (row+1, col) not in connected_group:
+                connected_group.append((row+1, col))
+            if self.get_at((row, col-1)) != Value.BLACK and (row, col-1) not in connected_group:
+                connected_group.append((row, col-1))
+            if self.get_at((row, col+1)) != Value.BLACK and (row, col+1) not in connected_group:
+                connected_group.append((row, col+1))
 
-        connected_group.add((row, col))
-        print(self.get_at((row, col)))
+        for i in range(self.size[0]):
+            for j in range(self.size[1]):
+                key = (i, j)
+                if self.get_at(key) != Value.BLACK and key not in connected_group:
+                    return False
         return True
 
     def increment(self):
@@ -104,10 +102,10 @@ class Grid:
         return vals
 
     def at(self):
-        return self.grid.get((self.pRow, self.pCol))
+        return self.grid.get((self.pRow, self.pCol), Value.BLACK)
 
     def get_at(self, pointer):
-        return self.grid.get(pointer)
+        return self.grid.get(pointer, Value.BLACK)
 
     def equals(self, value):
         return value == self.at()
