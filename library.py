@@ -122,9 +122,7 @@ class PuzzleLibrary:
                 st_sq = int(row[4])
                 puz = ((rows, cols), clue_str, sym, st_sq)
                 puzzle_list.append(puz)
-                print(puz)
-
-            # print(puzzle_list)
+                # print(puz)
 
     def show_and_pick(self):
         header = '\tSize \t\t  Sym \t\t  Start\t  Clues'
@@ -137,6 +135,7 @@ class PuzzleLibrary:
         # TODO Add validation
         choice = input('Which puzzle? ')
         size, clues, sym, start = self.puz_list[int(choice)-1]
+        print(size, clues, sym, start)
         return PuzzleDetails(size, clues, sym, start)
 
 

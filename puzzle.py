@@ -22,7 +22,7 @@ class Puzzle():
         self.solutions.start_timer()
 
         self.implement_starting_squares()
-        while(self.solving):
+        while (self.solving):
             self.grid.increment()
             self.squares_checked += 1
 
