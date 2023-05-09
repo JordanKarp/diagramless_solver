@@ -10,7 +10,7 @@ class SolverApp:
         solver_details = SolverDetails(use_symmetry=True,
                                        use_starting_square=True,
                                        find_all=True,
-                                       use_interconnected=True,
+                                       use_interconnected=False,
                                        show_numbers=True,
                                        debug=False)
         puzzle = Puzzle(puz_details, solver_details)

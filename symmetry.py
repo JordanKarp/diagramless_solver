@@ -1,9 +1,23 @@
+from abc import ABC, abstractmethod
 
 
-class Asymmetry:
+class Symmetry(ABC):
+    def __init__(self, name):
+        self.name = type
+
+    @abstractmethod
+    def can_place(self):
+        pass
+
+    @abstractmethod
+    def sym_pointer(self):
+        pass
+
+
+class Asymmetry(Symmetry):
     def __init__(self, dimensions):
-        self.name = "Asymmetry"
-        self.dimensions = dimensions
+        super().__init__("Asymmetry")
+        self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
         return True
@@ -12,9 +26,9 @@ class Asymmetry:
         return [(pointer)]
 
 
-class LeftRightSym:
+class LeftRightSym(Symmetry):
     def __init__(self, dimensions):
-        self.name = "Left Right"
+        super().__init__("Left Right")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -26,9 +40,9 @@ class LeftRightSym:
         return [(row_pointer, self.columns - 1 - col_pointer)]
 
 
-class UpDownSym:
+class UpDownSym(Symmetry):
     def __init__(self, dimensions):
-        self.name = "Up Down"
+        super().__init__("Up Down")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -40,9 +54,9 @@ class UpDownSym:
         return [(self.rows - 1 - row_pointer, col_pointer)]
 
 
-class RotationalSym:
+class RotationalSym (Symmetry):
     def __init__(self, dimensions):
-        self.name = "Rotational"
+        super().__init__("Rotational")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -56,9 +70,9 @@ class RotationalSym:
                  self.columns - 1 - col_pointer)]
 
 
-class DiagonalTLBRSym:
+class DiagonalTLBRSym (Symmetry):
     def __init__(self, dimensions):
-        self.name = "Diagonal TLBR"
+        super().__init__("Diagonal TLBR")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -70,9 +84,9 @@ class DiagonalTLBRSym:
         return [(col_pointer, row_pointer)]
 
 
-class DiagonalTRBLSym:
+class DiagonalTRBLSym(Symmetry):
     def __init__(self, dimensions):
-        self.name = "Diagonal TRBL"
+        super().__init__("Diagonal TRBL")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -85,9 +99,9 @@ class DiagonalTRBLSym:
                  self.rows - 1 - row_pointer)]
 
 
-class DualRotationalSym:
+class DualRotationalSym(Symmetry):
     def __init__(self, dimensions):
-        self.name = "Dual Rotational"
+        super().__init__("Dual Rotational")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -106,12 +120,11 @@ class DualRotationalSym:
                 (self.columns - 1 - col_pointer, row_pointer)]
 
 
-class ThreeWaySym:
+class ThreeWaySym(Symmetry):
     '''Left Right Symmetry, Up Down Symmetry, and Rotational Symmetry'''
 
     def __init__(self, dimensions):
-        self.name = "Three Way"
-
+        super().__init__("Three Way")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
@@ -128,11 +141,11 @@ class ThreeWaySym:
                 (self.rows - 1 - row_pointer, col_pointer)]
 
 
-class SuperSym:
+class SuperSym(Symmetry):
     '''Left Right, Up Down, Rotational, Dual Rotational and both Diagonal Symmetries'''
 
     def __init__(self, dimensions):
-        self.name = "Super"
+        super().__init__("Super")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
