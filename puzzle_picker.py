@@ -23,7 +23,7 @@ class PuzzlePicker():
         choice = input('> ')
         if choice == '1':
             self.source = PuzzleLibrary()
-            self.puzzle = self.source.show_and_pick()
+            self.puzzle = self.source.run()
         elif choice == '2':
             self.source = PuzzleInput()
             self.puzzle = self.source.run()
