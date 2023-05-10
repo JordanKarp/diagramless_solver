@@ -7,7 +7,7 @@ from value import SYMMETRIES
 
 
 class NYTPuzzleInput():
-    '''This will access github of archived NYT crossword puzzles, and pull the needed info into the solver'''
+    '''Access github of archived NYT crossword puzzles, and pull the needed info into the solver'''
 
     def __init__(self):
         self.converter = Converter()
@@ -40,8 +40,9 @@ class NYTPuzzleInput():
     def pull_puzzle(self, date):
         try:
             month, day, year = date
-            url = f'https://raw.githubusercontent.com/doshea/nyt_crosswords/master/{year}/{month.zfill(2)}/{day.zfill(2)}.json'
-            response = requests.get(url)
+            BASE = 'https://raw.githubusercontent.com/doshea/nyt_crosswords/master/'
+            URL = f'{BASE}{year}/{month.zfill(2)}/{day.zfill(2)}.json'
+            response = requests.get(URL)
             # print(response.status_code)
             response.raise_for_status()
         except Exception as err:

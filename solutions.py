@@ -41,9 +41,10 @@ class Solutions:
         for k, v in self.solver_details.__dict__.items():
             detail = k.title().replace('_', ' ').ljust(20)
             text += f'{detail}: {v}' + '\n'
-        text += '\n'
+        text += '-' * 7 + '\n'
         text += f'Squares checked: {self.total_checked} ' + '\n'
-        text += f'Total time: {self.end_time} seconds.' + '\n' + '\n'
+        text += f'Total time: {self.end_time} seconds.' + '\n'
+        text += f'Total solution(s): {len(self.list)}' + '\n' + '\n'
 
         for num, (puz, debug_counter, elapsed_time) in enumerate(self.list, 1):
             text += f'{num}: {elapsed_time} seconds' + '\n'
