@@ -1,5 +1,4 @@
 from puzzle import Puzzle
-# from library import PuzzleLibrary
 from details import SolverDetails
 from puzzle_picker import PuzzlePicker
 
@@ -13,8 +12,8 @@ class SolverApp:
         puzzle_details = self.puzzle_picker.run()
         solver_details = SolverDetails(use_symmetry=True,
                                        use_starting_square=True,
-                                       find_all=True,
-                                       use_interconnected=False,
+                                       find_all=False,
+                                       use_interconnected=True,
                                        show_numbers=True,
                                        debug=False)
         puzzle = Puzzle(puzzle_details, solver_details)

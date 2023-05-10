@@ -2,6 +2,7 @@
 import csv
 
 from details import PuzzleDetails
+
 from symmetry import RotationalSym, UpDownSym, LeftRightSym, \
     DiagonalTLBRSym, DiagonalTRBLSym, DualRotationalSym, \
     ThreeWaySym, SuperSym, Asymmetry

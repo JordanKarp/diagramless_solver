@@ -1,5 +1,9 @@
 from enum import Enum, auto
 
+from symmetry import RotationalSym, UpDownSym, LeftRightSym, \
+    DiagonalTLBRSym, DiagonalTRBLSym, DualRotationalSym, \
+    ThreeWaySym, SuperSym, Asymmetry
+
 
 class Value(Enum):
     BLACK = auto()
@@ -38,4 +42,17 @@ SYMBOLS = {
     Value.UNKNOWN: '_',
     Value.FINAL: 'Y'
 
+}
+
+SYMMETRIES = {
+    'Rotational': RotationalSym,
+    'Up Down': UpDownSym,
+    'Left Right': LeftRightSym,
+    'Diagonal TRBL': DiagonalTRBLSym,
+    'Diagonal TLBR': DiagonalTLBRSym,
+    'Dual Rotation': DualRotationalSym,
+    'Three Way': ThreeWaySym,
+    'Super': SuperSym,
+    'Asymmetry': Asymmetry,
+    'None': Asymmetry
 }

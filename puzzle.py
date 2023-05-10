@@ -19,6 +19,7 @@ class Puzzle():
 
     def solve(self):
         clear_terminal()
+        print('Processing.')
         self.solutions.start_timer()
 
         self.implement_starting_squares()
@@ -73,6 +74,7 @@ class Puzzle():
                 print(
                     f'Clue: {self.clues.clue_pointer} - {self.clues.at()}')
                 print(f'Splits: {len(self.splits)}')
+                print(f'Squares Checked: {self.squares_checked}')
                 print(f'Solutions: {len(self.solutions.list)}')
 
         self.solutions.end_timer(self.squares_checked)
@@ -109,7 +111,6 @@ class Puzzle():
                     for pointer in self.puzzle_details.symmetry.sym_pointer(self.grid.pointer):
                         self.grid.set_at(Value.UNKNOWN, pointer)
                 else:
-                    # print('here?')
                     continue
             self.grid.set(Value.UNKNOWN)
         self.set_black_square()

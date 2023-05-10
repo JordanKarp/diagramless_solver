@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Symmetry(ABC):
     def __init__(self, name):
-        self.name = type
+        self.name = name
 
     @abstractmethod
     def can_place(self):
@@ -12,6 +12,9 @@ class Symmetry(ABC):
     @abstractmethod
     def sym_pointer(self):
         pass
+
+    def __repr__(self):
+        return self.name
 
 
 class Asymmetry(Symmetry):
@@ -54,7 +57,7 @@ class UpDownSym(Symmetry):
         return [(self.rows - 1 - row_pointer, col_pointer)]
 
 
-class RotationalSym (Symmetry):
+class RotationalSym(Symmetry):
     def __init__(self, dimensions):
         super().__init__("Rotational")
         self.rows, self.columns = dimensions

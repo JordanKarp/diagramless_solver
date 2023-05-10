@@ -8,3 +8,7 @@ def clear_terminal():
     # for mac and linux(here, os.name is 'posix')
     else:
         _ = os.system('clear')
+
+
+def is_num_between(val, min, max):
+    return min <= val <= max
