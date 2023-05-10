@@ -28,15 +28,19 @@ class Solutions:
         self.list.append(entry)
 
     def print_solutions(self):
-        # clear_terminal()
+        clear_terminal()
         text = 'Results' + '\n'
         text += '-' * 7 + '\n'
         # Puzzle Details
         for k, v in self.puzzle_details.__dict__.items():
-            text += f'{k.title()}: {v}' + '\n'
+            detail = k.title().replace('_', ' ').ljust(20)
+            text += f'{detail}: {v}' + '\n'
+
         # Solver details
+        text += '-' + '\n'
         for k, v in self.solver_details.__dict__.items():
-            text += f'{k.title()}: {v}' + '\n'
+            detail = k.title().replace('_', ' ').ljust(20)
+            text += f'{detail}: {v}' + '\n'
         text += '\n'
         text += f'Squares checked: {self.total_checked} ' + '\n'
         text += f'Total time: {self.end_time} seconds.' + '\n' + '\n'

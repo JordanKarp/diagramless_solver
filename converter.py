@@ -13,3 +13,16 @@ class Converter():
             else:
                 raise IndexError
         return cluestring
+
+    # Not currently using
+    def unprocess_cluestring(self, cluestring):
+        index = 1
+        across_nums = []
+        down_nums = []
+        for char in cluestring:
+            if char in ['Z', 'A']:
+                across_nums.append(index)
+            if char in ['Z', 'D']:
+                down_nums.append(index)
+            index += 1
+        return across_nums, down_nums
