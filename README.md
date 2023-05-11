@@ -40,7 +40,9 @@ Run!
 
 ## Solver Details
 There are a few options we can toggle while solving a particular puzzle, toggled by a True or False:
-- <ins>use_symmetry</ins>:         Enforce the puzzle's symmetry.
+ | Options | Explaination |
+ | ___ | ___ |
+- | use_symmetry |         Enforce the puzzle's symmetry. |
 - <ins>use_starting_square</ins>:  Enforce the puzzle's starting square.
 - <ins>find_all</ins>:             Find every single solution.
 - <ins>use_interconnected</ins>:   Enforce that every clue 'connects' to every other clue.
@@ -64,8 +66,8 @@ Most crosswords exhibit 'Rotational' symmetry, however this solver allows for a 
 - Check out the background.md for a bit of my personal experience with this problem.
 
 ## TODO
-- [ ] Move Grid.is_interconnected so that it checks more frequently.
+- [ ] Move .is_interconnected call so that it checks more frequently.
+- [ ] Add sorting/organization to the puzzle library.
 - [ ] Add JPZ support.
 - [ ] Add IPUZ support.
 - [ ] Add PUZ support.
-- [ ] Add sorting/organization to the puzzle library.
