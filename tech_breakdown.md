@@ -4,7 +4,7 @@
 | File | Explaination |
 | --- | --- |
 | clueset.py | contains Clueset, which tracks which clue we are currently analyzing. |
-| converter.py = contains Converter, which is responsible for turning accross and down clue numbers into a clue string, and then back.  |
+| converter.py | contains Converter, which is responsible for turning accross and down clue numbers into a clue string, and then back.  |
 | details.py | contains both PuzzleDetails and SolverDetails, which are dataclasses meant to store this particutlar puzzle and solving information. |
 | exclusion_table.py | contains only the exclusion table, which helps to determine a square's potential values. |
 | grid.py | contains Grid, which tracks which square we are currently analyzing (pointer), as well as the  current values of all the squares. It can also return the values of the 'neighbors' of the pointer. |
@@ -15,7 +15,7 @@
 | puzzle_input.py | contains Puzzle Input, which is responsible for prompting and validating a user-input puzzle. |
 | puzzle_list.csv | datasource for current puzzle library. |
 | puzzle_picker.py | contains PuzzlePicker, which allows the user to chose the puzzle source. |
-| solutions.py = contains Solutions, which is in charge of tracking all correct solutions, analyzing the solutions, and printing/logging them afterwards. |
+| solutions.py | contains Solutions, which is in charge of tracking all correct solutions, analyzing the solutions, and printing/logging them afterwards. |
 | solver_picker.py | contains SolverPicker, which allows users to taggle the solver parameters. |
 | symmetry.py | contains all of the types of symmetries and the logic behind them. |
 | util.py | contains a few utility functions, such as clear_terminal() and an interger validator. |
