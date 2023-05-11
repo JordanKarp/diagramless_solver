@@ -61,3 +61,10 @@ Most crosswords exhibit 'Rotational' symmetry, however this solver allows for a 
 ## More info
 - Check out the tech_breakdown.md for a bit more info about how this program works.
 - Check out the background.md for a bit of my personal experience with this problem.
+
+## TODO
+[] Move Grid.is_interconnected so that it checks more frequently.
+[] Add JPZ support.
+[] Add IPUZ support.
+[] Add PUZ support.
+[] Add sorting/organization to the puzzle library.
