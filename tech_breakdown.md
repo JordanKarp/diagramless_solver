@@ -1,6 +1,7 @@
 # Tech Breakdown
 
 ## File and Class Overview
+
 | File | Explaination |
 | --- | --- |
 | clueset.py | contains Clueset, which tracks which clue we are currently analyzing. |
@@ -10,14 +11,14 @@
 | grid.py | contains Grid, which tracks which square we are currently analyzing (pointer), as well as the  current values of all the squares. It can also return the values of the 'neighbors' of the pointer. |
 | library.py | contains PuzzleLibrary, which is able to load and display a list of puzzles (through JSON), for the user to choose one to be solved. |
 | main.py | contains SolverApp, which is in charge of running the solver at the highest level. |
-| nyt_input.py | Import a puzzle from a github archive of standard NYT puzzles from 1977-2017. |
+| nyt_input.py | contains NYTPuzzleInput,  which allows a user to import a puzzle from a github archive of standard NYT puzzles from 1977-2017. |
 | puzzle.py |  contains Puzzle, the main solving engine. |
 | puzzle_input.py | contains Puzzle Input, which is responsible for prompting and validating a user-input puzzle. |
 | puzzle_list.csv | datasource for current puzzle library. |
 | puzzle_picker.py | contains PuzzlePicker, which allows the user to chose the puzzle source. |
 | solutions.py | contains Solutions, which is in charge of tracking all correct solutions, analyzing the solutions, and printing/logging them afterwards. |
 | solver_picker.py | contains SolverPicker, which allows users to taggle the solver parameters. |
-| symmetry.py | contains all of the types of symmetries and the logic behind them. |
+| symmetry.py | contains Symmetry and classes of all of the other types of symmetries, including the logic behind them. |
 | util.py | contains a few utility functions, such as clear_terminal() and an interger validator. |
 | value.py | contains an Enum of the different options for a single square, along with a few other list related constants. |
 
