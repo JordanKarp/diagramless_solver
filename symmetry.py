@@ -65,7 +65,7 @@ class RotationalSym(Symmetry):
     def can_place(self, pointer):
         row_pointer, col_pointer = pointer
         cell_num = row_pointer * self.columns + col_pointer + 1
-        return cell_num <= ((self.rows * self.columns) / 2)
+        return cell_num <= ((self.rows * self.columns) / 2) + 0.5
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
@@ -167,3 +167,8 @@ class SuperSym(Symmetry):
                 (self.rows - 1 - row_pointer, col_pointer),
                 (self.columns - 1 - col_pointer, row_pointer),
                 (col_pointer, row_pointer)]
+
+
+# rs = RotationalSym((14, 14))
+
+# print(rs.can_place((7, 0)))

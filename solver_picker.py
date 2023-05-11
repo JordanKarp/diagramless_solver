@@ -1,11 +1,12 @@
 from details import SolverDetails
+from util import clear_terminal
 
 
 class SolverPicker():
     def __init__(self):
         self.use_symmetry = True
         self.use_starting_square = True
-        self.find_all = True
+        self.find_all = False
         self.use_interconnected = True
         self.show_numbers = True
         self.debug = False
@@ -14,6 +15,7 @@ class SolverPicker():
         return self.prompt_change()
 
     def print_details(self):
+        clear_terminal()
         print('Solver Details:')
         for num, (k, v) in enumerate(self.__dict__.items(), 1):
             detail = k.title().replace('_', ' ').ljust(20)

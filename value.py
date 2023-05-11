@@ -50,7 +50,7 @@ SYMMETRIES = {
     'Left Right': LeftRightSym,
     'Diagonal TRBL': DiagonalTRBLSym,
     'Diagonal TLBR': DiagonalTLBRSym,
-    'Dual Rotation': DualRotationalSym,
+    'Dual Rotational': DualRotationalSym,
     'Three Way': ThreeWaySym,
     'Super': SuperSym,
     'Asymmetry': Asymmetry,

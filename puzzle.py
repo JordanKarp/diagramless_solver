@@ -18,7 +18,6 @@ class Puzzle():
         self.squares_checked = 0
 
     def solve(self):
-        clear_terminal()
         print('Processing.')
         self.solutions.start_timer()
 
@@ -67,14 +66,15 @@ class Puzzle():
                     else:
                         self.backtrack()
 
-            if self.solver_details.debug:
+            if self.solver_details.debug or self.squares_checked % 1_000_000 == 0:
                 clear_terminal()
+                print('In progress:')
                 print(self.grid.return_grid())
                 print(f'Grid: {self.grid.pointer}')
                 print(
                     f'Clue: {self.clues.clue_pointer} - {self.clues.at()}')
                 print(f'Splits: {len(self.splits)}')
-                print(f'Squares Checked: {self.squares_checked}')
+                print(f'Squares Checked: {self.squares_checked:,}')
                 print(f'Solutions: {len(self.solutions.list)}')
 
         self.solutions.end_timer(self.squares_checked)
