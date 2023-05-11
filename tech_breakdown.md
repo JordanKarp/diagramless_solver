@@ -1,23 +1,25 @@
 # Tech Breakdown
 
 ## File and Class Overview
-- clueset.py - contains Clueset, which tracks which clue we are currently analyzing.
-- converter.py = contains Converter, which is responsible for turning accross and down clue numbers into a clue string, and then back. 
-- details.py - contains both PuzzleDetails and SolverDetails, which are dataclasses meant to store this particutlar puzzle and solving information.
-- exclusion_table.py - contains only the exclusion table, which helps to determine a square's potential values.
-- grid.py - contains Grid, which tracks which square we are currently analyzing (pointer), as well as the  current values of all the squares. It can also return the values of the 'neighbors' of the pointer.
-- library.py - contains PuzzleLibrary, which is able to load and display a list of puzzles (through JSON), for the user to choose one to be solved.
-- main.py - contains SolverApp, which is in charge of running the solver at the highest level.
-- nyt_input.py - Import a puzzle from a github archive of standard NYT puzzles from 1977-2017.
-- puzzle.py -  contains Puzzle, the main solving engine.
-- puzzle_input.py - contains Puzzle Input, which is responsible for prompting and validating a user-input puzzle.
-- puzzle_list.csv - datasource for current puzzle library.
-- puzzle_picker.py - contains PuzzlePicker, which allows the user to chose the puzzle source.
-- solutions.py = contains Solutions, which is in charge of tracking all correct solutions, analyzing the solutions, and printing/logging them afterwards.
-- solver_picker.py - contains SolverPicker, which allows users to taggle the solver parameters.
-- symmetry.py - contains all of the types of symmetries and the logic behind them.
-- util.py - contains a few utility functions, such as clear_terminal() and an interger validator. 
-- value.py - contains an Enum of the different options for a single square, along with a few other list related constants.
+| File | Explaination |
+| --- | --- |
+| clueset.py | contains Clueset, which tracks which clue we are currently analyzing. |
+| converter.py = contains Converter, which is responsible for turning accross and down clue numbers into a clue string, and then back.  |
+| details.py | contains both PuzzleDetails and SolverDetails, which are dataclasses meant to store this particutlar puzzle and solving information. |
+| exclusion_table.py | contains only the exclusion table, which helps to determine a square's potential values. |
+| grid.py | contains Grid, which tracks which square we are currently analyzing (pointer), as well as the  current values of all the squares. It can also return the values of the 'neighbors' of the pointer. |
+| library.py | contains PuzzleLibrary, which is able to load and display a list of puzzles (through JSON), for the user to choose one to be solved. |
+| main.py | contains SolverApp, which is in charge of running the solver at the highest level. |
+| nyt_input.py | Import a puzzle from a github archive of standard NYT puzzles from 1977-2017. |
+| puzzle.py |  contains Puzzle, the main solving engine. |
+| puzzle_input.py | contains Puzzle Input, which is responsible for prompting and validating a user-input puzzle. |
+| puzzle_list.csv | datasource for current puzzle library. |
+| puzzle_picker.py | contains PuzzlePicker, which allows the user to chose the puzzle source. |
+| solutions.py = contains Solutions, which is in charge of tracking all correct solutions, analyzing the solutions, and printing/logging them afterwards. |
+| solver_picker.py | contains SolverPicker, which allows users to taggle the solver parameters. |
+| symmetry.py | contains all of the types of symmetries and the logic behind them. |
+| util.py | contains a few utility functions, such as clear_terminal() and an interger validator. |
+| value.py | contains an Enum of the different options for a single square, along with a few other list related constants. |
 
 ## Grid
 The Grid class is responsible initializing the grid with unknown values, holding all of the updated values in the grid, as well as tracking which square we are currently analyzing (known as the pointer). In the code, the pRow and the pCol represent the pointer's row and column for readability, but are combined as a tuple (through the @property).
@@ -53,8 +55,8 @@ The basic algorithm within Puzzle.solve() is outlined below:
         - While still solving:
             - Increment to the next square
             - If end of puzzle:
-                If correct, add solution.
-                If incorrect, backgrack.
+                - If correct, add solution.
+                - If incorrect, backgrack.
             - Check possibilities for current square.
             - If there are 0 options, backtrack.
             - If there are 2 options, mark a backtrack spot and keep going.
@@ -65,11 +67,13 @@ The basic algorithm within Puzzle.solve() is outlined below:
                     - If it's incorrect, backtrack.
 
 Within the Puzzle class, there are few other methods:
-- implement_starting_squares() - If enforced, this will pre-pend the correct values: Black values until the given starting square, then add an Across and Down value. If this is not enforced, adjust the pointer slightly (so that the 'increment to the next square' puts you at the first square).
-- mark_backtrack_spot() - Adds the current pointer to a list of spots (splits) where there were multiple options for a single square.
-- backtrack() - Grab the most recently added backtrack spot, and undo the puzzle up until that point. Then add a black square (instead of whatever value was first implemented) and continue on.
-- set_black_square() - This will place a black square at the pointer. It will also check if symmetry is enforced, and that the pointer is in the 'can-place' zone. If so, it will place black squares in the corresponding symetrical location(s).
-- check_options() - described above, is meant to return all the possible options for a single square based on the current grid values.
+| Method | Explaination |
+| --- | --- |
+| implement_starting_squares() | If enforced, this will pre-pend the correct values: Black values until the given starting square, then add an Across and Down value. If this is not enforced, adjust the pointer slightly (so that the 'increment to the next square' puts you at the first square). |
+| mark_backtrack_spot() | Adds the current pointer to a list of spots (splits) where there were multiple options for a single square. |
+| backtrack() | Grab the most recently added backtrack spot, and undo the puzzle up until that point. Then add a black square (instead of whatever value was first implemented) and continue on. |
+| set_black_square() | This will place a black square at the pointer. It will also check if symmetry is enforced, and that the pointer is in the 'can place' zone. If so, it will place black squares in the corresponding symetrical location(s). |
+| check_options() | described above, is meant to return all the possible options for a single square based on the current grid values. }
 
 ## Symmetry
 When symmetry is enforced, it tends to speed up the process signficantly. For each black square placed, the solver will be able to place one (or more) symmetrical black squares as well.
@@ -77,5 +81,7 @@ When symmetry is enforced, it tends to speed up the process signficantly. For ea
 So in order to speed up the process during solving, for each type of symmetry we need to determine two different 'zones', one where we place black squares and one where ONLY symmetrically mirrored squares are placed based on the first zone. If the pointer is in the 'can place' zone, then it will place a black square in that zone, and the corresponding black squares in the symetrical location(s).
 
 Each type of symmetry has their own class, initialized with the size of the grid. Each of these classes have two methods:
-- can_place(pointer) - returns True or False if the pointer is in the 'can place' zone, the first zone described above.
-- sym_pointer(pointer) - returns a list of the corresponding symmetrical location(s) for the given pointer.
+| Method | Explaination |
+| --- | --- |
+| can_place(pointer) | returns True or False if the pointer is in the 'can place' zone, the first zone described above. |
+| sym_pointer(pointer) | returns a list of the corresponding symmetrical location(s) for the given pointer. |
