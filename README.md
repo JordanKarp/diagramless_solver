@@ -63,8 +63,8 @@ Most crosswords exhibit 'Rotational' symmetry, however this solver allows for a 
 - Check out the background.md for a bit of my personal experience with this problem.
 
 ## TODO
-[] Move Grid.is_interconnected so that it checks more frequently.
-[] Add JPZ support.
-[] Add IPUZ support.
-[] Add PUZ support.
-[] Add sorting/organization to the puzzle library.
+- [] Move Grid.is_interconnected so that it checks more frequently.
+- [] Add JPZ support.
+- [] Add IPUZ support.
+- [] Add PUZ support.
+- [] Add sorting/organization to the puzzle library.
