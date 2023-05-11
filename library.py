@@ -4,12 +4,11 @@ from details import PuzzleDetails
 from util import is_num_between
 from value import SYMMETRIES
 
-PUZZLE_LIST_FILE = 'puzzle_list.csv'
-
 
 class PuzzleLibrary:
-    def __init__(self):
-        self.puz_list = self.load_puzzle_list(PUZZLE_LIST_FILE)
+    def __init__(self, library_file):
+        self.library_file = library_file
+        self.puz_list = self.load_puzzle_list(library_file)
 
     def run(self):
         self.show_library()

@@ -1,5 +1,8 @@
-import requests
-
+try:
+    import requests
+    active = True
+except ImportError:
+    active = False
 from converter import Converter
 from details import PuzzleDetails
 from util import is_num_between
@@ -13,7 +16,7 @@ class NYTPuzzleInput():
         self.converter = Converter()
 
     def run(self):
-        while True:
+        while active:
             try:
                 date = self.get_user_puzzle_date()
                 raw_puzzle = self.pull_puzzle(date)
@@ -24,6 +27,9 @@ class NYTPuzzleInput():
             else:
                 puzzle = self.parse_puzzle(raw_puzzle)
                 return puzzle
+        else:
+            print('Requests library not imported.')
+            quit()
 
     def get_user_puzzle_date(self):
         while True:

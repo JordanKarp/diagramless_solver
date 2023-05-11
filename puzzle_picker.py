@@ -1,6 +1,11 @@
+from pathlib import Path
+
 from library import PuzzleLibrary
 from puzzle_input import PuzzleInput
 from nyt_input import NYTPuzzleInput
+
+# PUZZLE_LIBRARY_CSV = Path('./puzzle_list.csv')
+PUZZLE_LIBRARY_CSV = Path(__file__).parent / "puzzle_list.csv"
 
 
 class PuzzlePicker():
@@ -24,13 +29,11 @@ class PuzzlePicker():
             try:
                 choice = input('> ')
                 if choice == '1':
-                    self.source = PuzzleLibrary()
+                    self.source = PuzzleLibrary(PUZZLE_LIBRARY_CSV)
                 elif choice == '2':
                     self.source = PuzzleInput()
-                    # self.puzzle = self.source.run()
                 elif choice == '3':
                     self.source = NYTPuzzleInput()
-                    # self.puzzle = self.source.run()
                 else:
                     raise ValueError
             except ValueError:
