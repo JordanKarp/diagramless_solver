@@ -40,9 +40,11 @@ Run!
 
 ## Solver Details
 There are a few options we can toggle while solving a particular puzzle, toggled by a True or False:
- | Options | Explaination |
- | ___ | ___ |
-- | use_symmetry |         Enforce the puzzle's symmetry. |
+| Options | Explaination |
+| --- | ------ |
+| use_symmetry | Enforce the puzzle's symmetry. |
+ 
+
 - <ins>use_starting_square</ins>:  Enforce the puzzle's starting square.
 - <ins>find_all</ins>:             Find every single solution.
 - <ins>use_interconnected</ins>:   Enforce that every clue 'connects' to every other clue.
