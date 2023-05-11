@@ -52,8 +52,8 @@ class NYTPuzzleInput():
             response = requests.get(URL)
             # print(response.status_code)
             response.raise_for_status()
-        except Exception as err:
-            print('No Puzzle Found')
+        except requests.exceptions.HTTPError:
+            # No puzzle found
             return False
         else:
             return response.json()
