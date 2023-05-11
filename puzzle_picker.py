@@ -20,13 +20,21 @@ class PuzzlePicker():
 3. Choose a standard puzzle from an NYT archive''')
 
     def choose(self):
-        choice = input('> ')
-        if choice == '1':
-            self.source = PuzzleLibrary()
-            self.puzzle = self.source.run()
-        elif choice == '2':
-            self.source = PuzzleInput()
-            self.puzzle = self.source.run()
-        elif choice == '3':
-            self.source = NYTPuzzleInput()
-            self.puzzle = self.source.run()
+        while True:
+            try:
+                choice = input('> ')
+                if choice == '1':
+                    self.source = PuzzleLibrary()
+                elif choice == '2':
+                    self.source = PuzzleInput()
+                    # self.puzzle = self.source.run()
+                elif choice == '3':
+                    self.source = NYTPuzzleInput()
+                    # self.puzzle = self.source.run()
+                else:
+                    raise ValueError
+            except ValueError:
+                print("Invalid input. Please try again!")
+            else:
+                self.puzzle = self.source.run()
+                break

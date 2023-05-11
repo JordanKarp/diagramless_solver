@@ -13,10 +13,17 @@ class NYTPuzzleInput():
         self.converter = Converter()
 
     def run(self):
-        date = self.get_user_puzzle_date()
-        raw_puzzle = self.pull_puzzle(date)
-        puzzle = self.parse_puzzle(raw_puzzle)
-        return puzzle
+        while True:
+            try:
+                date = self.get_user_puzzle_date()
+                raw_puzzle = self.pull_puzzle(date)
+                if raw_puzzle is False:
+                    raise ValueError
+            except ValueError:
+                print('No puzzle on this date, try again.')
+            else:
+                puzzle = self.parse_puzzle(raw_puzzle)
+                return puzzle
 
     def get_user_puzzle_date(self):
         while True:
@@ -47,7 +54,7 @@ class NYTPuzzleInput():
             response.raise_for_status()
         except Exception as err:
             print('No Puzzle Found')
-            print(err)  # Python 3.6
+            return False
         else:
             return response.json()
 
