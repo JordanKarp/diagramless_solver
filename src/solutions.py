@@ -1,6 +1,6 @@
 import time
 
-from converter import Converter
+from converter import unprocess_cluestring
 from util import clear_terminal
 
 
@@ -12,7 +12,6 @@ class Solutions:
         self.start_time = 0
         self.end_time = 0
         self.total_checked = 0
-        self.converter = Converter()
 
     def start_timer(self):
         self.start_time = time.time()
@@ -41,8 +40,7 @@ class Solutions:
             text += f'{detail}: {v}' + '\n'
 
         # Puzzle Clue numbers
-        acc, down = self.converter.unprocess_cluestring(
-            self.puzzle_details.clue_string)
+        acc, down = unprocess_cluestring(self.puzzle_details.clue_string)
         text += f'{"Across Numbers".ljust(20)}: {" ".join(str(x) for x in acc)}' + '\n'
         text += f'{"Down Numbers".ljust(20)}: {" ".join(str(x) for x in down)}' + '\n'
 
@@ -61,7 +59,7 @@ class Solutions:
 
         for num, (puz, debug_counter, elapsed_time) in enumerate(self.list, 1):
             text += f'{num}: {elapsed_time} seconds' + '\n'
-            text += f'{debug_counter} squares checked.' + '\n'
+            text += f'{debug_counter:,} squares checked.' + '\n'
             text += f'{puz}' + '\n'
 
         print(text)

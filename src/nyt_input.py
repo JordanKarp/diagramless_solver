@@ -3,7 +3,7 @@ try:
     active = True
 except ImportError:
     active = False
-from converter import Converter
+from converter import process_cluestring
 from details import PuzzleDetails
 from util import is_num_between
 from value import SYMMETRIES
@@ -11,9 +11,6 @@ from value import SYMMETRIES
 
 class NYTPuzzleInput():
     '''Access github of archived NYT crossword puzzles, and pull the needed info into the solver'''
-
-    def __init__(self):
-        self.converter = Converter()
 
     def run(self):
         while active:
@@ -78,7 +75,7 @@ class NYTPuzzleInput():
                                              for clue in p['clues']['down'])]
 
         # Convert clue numbers into cluestring
-        cluestring = self.converter.process_cluestring(across_nums, down_nums)
+        cluestring = process_cluestring(across_nums, down_nums)
 
         # Converty symmetry string into Symmetry class
         symmetry = SYMMETRIES['Rotational']
