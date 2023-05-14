@@ -9,7 +9,14 @@ PUZZLE_LIBRARY_CSV = Path(__file__).parent / "puzzle_list.csv"
 
 
 class PuzzlePicker():
+    """
+    This class allows the user to choose the puzzle's input source
+    and  to pass the puzzle details from the input source to the solver.
+    """
     def __init__(self):
+        """
+        Initializes a new instance of the SolverPicker class.
+        """
         self.source = None
         self.puzzle = None
 

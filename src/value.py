@@ -6,6 +6,7 @@ from symmetry import RotationalSym, UpDownSym, LeftRightSym, \
 
 
 class Value(Enum):
+    """Represents possible values that can be assigned to a square in a crossword puzzle grid."""
     BLACK = auto()
     EMPTY = auto()
     ACROSS = auto()

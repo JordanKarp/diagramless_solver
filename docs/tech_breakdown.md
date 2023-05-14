@@ -18,7 +18,7 @@
 | puzzle_picker.py | contains PuzzlePicker, which allows the user to chose the puzzle source. |
 | solutions.py | contains Solutions, which is in charge of tracking all correct solutions, analyzing the solutions, and printing/logging them afterwards. |
 | solver_picker.py | contains SolverPicker, which allows users to taggle the solver parameters. |
-| symmetry.py | contains Symmetry and classes of all of the other types of symmetries, including the logic behind them. |
+| symmetry.py | contains Symmetry and classes for all of the other types of symmetries, including the logic behind each. |
 | util.py | contains a few utility functions, such as clear_terminal() and an interger validator. |
 | value.py | contains an Enum of the different options for a single square, along with a few other list related constants. |
 

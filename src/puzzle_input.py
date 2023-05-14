@@ -5,7 +5,11 @@ from value import SYMMETRIES
 
 
 class PuzzleInput():
+    '''
+    A class to get the input data for a puzzle, including dimensions, cluestring, symmetry, and starting square.
+    '''
     def __init__(self):
+        """    Initializes the PuzzleInput class by creating an instance of the Converter class."""
         self.converter = Converter()
 
     def run(self):

@@ -2,22 +2,54 @@ from abc import ABC, abstractmethod
 
 
 class Symmetry(ABC):
+    """ Abstract base class for defining the structure of Symmetry."""
+
     def __init__(self, name):
+        """ Initializes the Symmetry object.
+
+        Args:
+            name (str): The name of the Symmetry object.
+        """
         self.name = name
 
     @abstractmethod
-    def can_place(self):
+    def can_place(self, pointer):
+        """
+        Determines black square can be placed at the pointer with symmetry.
+
+        Args:
+            pointer (tuple[int, int]): The starting (row, col) index of the word.
+
+        Returns:
+            bool: True if the black square can be placed, False otherwise.
+        """
         pass
 
     @abstractmethod
     def sym_pointer(self):
+        """ Returns the symmetrical pointer(s) for a given pointer in a list.
+
+        Args:
+            pointer (tuple[int, int]): The (row, col) index of the pointer.
+
+        Returns:
+            list[tuple[int, int]]: A list of symmetrical pointers.
+        """
         pass
 
     def __repr__(self):
+        """ Returns the name of the Symmetry object.
+
+        Returns:
+            str: The name of the Symmetry object.
+        """
         return self.name
 
 
 class Asymmetry(Symmetry):
+    """
+    No symmetry
+    """
     def __init__(self, dimensions):
         super().__init__("Asymmetry")
         self.rows, self.columns = dimensions
@@ -30,6 +62,11 @@ class Asymmetry(Symmetry):
 
 
 class LeftRightSym(Symmetry):
+    """
+    Also known as mirror symmetry, every white and black square
+    has a counterpart across the puzzle's central vertical axis.
+    """
+
     def __init__(self, dimensions):
         super().__init__("Left Right")
         self.rows, self.columns = dimensions
@@ -44,6 +81,11 @@ class LeftRightSym(Symmetry):
 
 
 class UpDownSym(Symmetry):
+    """
+    Every white and black square has a counterpart
+    across the puzzle's central horizontal axis.
+    """
+
     def __init__(self, dimensions):
         super().__init__("Up Down")
         self.rows, self.columns = dimensions
@@ -58,6 +100,12 @@ class UpDownSym(Symmetry):
 
 
 class RotationalSym(Symmetry):
+    """
+    Also known as Standard Crossword Symmetry or 180˚ Rotational Symmetry,
+    every white and black square has a counterpart by spinning a half turn
+    about it's central point.
+    """
+
     def __init__(self, dimensions):
         super().__init__("Rotational")
         self.rows, self.columns = dimensions
@@ -74,6 +122,10 @@ class RotationalSym(Symmetry):
 
 
 class DiagonalTLBRSym (Symmetry):
+    """
+    Every white and black square has a mirror counterpart
+    across the puzzle's diagonal axis, from the top left to the bottom right.
+    """
     def __init__(self, dimensions):
         super().__init__("Diagonal TLBR")
         self.rows, self.columns = dimensions
@@ -88,6 +140,10 @@ class DiagonalTLBRSym (Symmetry):
 
 
 class DiagonalTRBLSym(Symmetry):
+    """
+    Every white and black square has a mirror counterpart
+    across the puzzle's diagonal axis, from the top right to the bottom left.
+    """
     def __init__(self, dimensions):
         super().__init__("Diagonal TRBL")
         self.rows, self.columns = dimensions
@@ -103,6 +159,11 @@ class DiagonalTRBLSym(Symmetry):
 
 
 class DualRotationalSym(Symmetry):
+    """
+    Building on Rotational Symmetry, every white and black square
+    has counterparts by spinning a quarter turn, a half turn,
+    and a three quarter turn about it's central point.
+    """
     def __init__(self, dimensions):
         super().__init__("Dual Rotational")
         self.rows, self.columns = dimensions
@@ -124,7 +185,11 @@ class DualRotationalSym(Symmetry):
 
 
 class ThreeWaySym(Symmetry):
-    '''Left Right Symmetry, Up Down Symmetry, and Rotational Symmetry'''
+    """
+    Left Right, Up Down and Rotational Symmetries, all combined.
+    With the exception of the central row and column, every white
+    and black square has three symmetrical counterparts.
+    """
 
     def __init__(self, dimensions):
         super().__init__("Three Way")
@@ -145,8 +210,10 @@ class ThreeWaySym(Symmetry):
 
 
 class SuperSym(Symmetry):
-    '''Left Right, Up Down, Rotational, Dual Rotational and both Diagonal Symmetries'''
-
+    """
+    Left Right, Up Down, Rotational, Dual Rotational
+    and both Diagonal Symmetries, all combined.
+    """
     def __init__(self, dimensions):
         super().__init__("Super")
         self.rows, self.columns = dimensions
@@ -167,8 +234,3 @@ class SuperSym(Symmetry):
                 (self.rows - 1 - row_pointer, col_pointer),
                 (self.columns - 1 - col_pointer, row_pointer),
                 (col_pointer, row_pointer)]
-
-
-# rs = RotationalSym((14, 14))
-
-# print(rs.can_place((7, 0)))

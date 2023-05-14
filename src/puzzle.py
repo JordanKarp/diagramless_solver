@@ -7,7 +7,18 @@ from value import Value, OPTIONS, CLUES
 
 
 class Puzzle():
+    '''
+    Puzzle - Responsible for the actual solving/builing of a diagramless crossword puzzle.
+    '''
+
     def __init__(self, puzzle_details, solver_details):
+        '''
+        Initializes a Puzzle object.
+
+        Parameters:
+            puzzle_details (PuzzleDetails): Details of the puzzle to be solved.
+            solver_details (SolverDetails): Details of the solver to be used.
+        '''
         self.puzzle_details = puzzle_details
         self.solver_details = solver_details
         self.grid = Grid(self.puzzle_details.size)
@@ -81,11 +92,16 @@ class Puzzle():
         return self.solutions
 
     def implement_starting_squares(self):
+        '''
+        Set the first few squares manually, if using starting square.
+        '''
+
         # Trick to start at the correct square if we're not using the starting square info
         if not self.solver_details.use_starting_square:
             self.grid.pCol = -1
             return
 
+        # Place Black squares up until the starting square, then place AcrossDown
         for _ in range(self.puzzle_details.starting_square - 1):
             self.set_black_square()
             self.grid.increment()
@@ -93,13 +109,16 @@ class Puzzle():
         self.clues.increment()
 
     def mark_backtrack_point(self):
+        '''Mark the spot where there are two potential options, for backtracking later on.'''
         self.splits.append((self.grid.pRow, self.grid.pCol))
 
     def backtrack(self):
+        # If there are no backtracking spots left, stop solving
         if len(self.splits) == 0:
             self.solving = False
             return
 
+        # Grag the most recent backtrack pointer, and undo everything until that point.
         backtrack_pointer = self.splits.pop()
         while self.grid.pointer != backtrack_pointer:
             self.grid.decrement()
@@ -113,9 +132,12 @@ class Puzzle():
                 else:
                     continue
             self.grid.set(Value.UNKNOWN)
+
+        # Place a black square and proceed.
         self.set_black_square()
 
     def set_black_square(self):
+        '''Set a black square, and potentially set the symmetrical square(s).'''
         self.grid.set(Value.BLACK)
         if self.solver_details.use_symmetry:
             if self.puzzle_details.symmetry.can_place(self.grid.pointer):
@@ -123,6 +145,7 @@ class Puzzle():
                     self.grid.set_at(Value.BLACK, pointer)
 
     def check_options(self):
+        '''Check which options are impossible, given each individual neighbor configurations.'''
         impossibles = set()
         impossibles.update(EXCLUSION_TABLE['U1'][self.grid.u1()])
         impossibles.update(EXCLUSION_TABLE['U2'][self.grid.u2()])
@@ -137,11 +160,11 @@ class Puzzle():
         impossibles.update(EXCLUSION_TABLE['R2'][self.grid.r2()])
         impossibles.update(EXCLUSION_TABLE['R3'][self.grid.r3()])
 
-        # If EORow, make sure it's a valid row (not all blacks)
+        # If end of a row, make sure it's a valid row (not all blacks)
         if self.grid.is_end_of_row():
             if self.grid.values_in_row() == {Value.BLACK, Value.UNKNOWN}:
                 impossibles.update({Value.BLACK})
-        # If EOCol, make sure it's a valid col (no all blacks)
+        # If end of a column, make sure it's a valid col (no all blacks)
         if self.grid.is_end_of_col():
             if self.grid.values_in_col() == {Value.BLACK, Value.UNKNOWN}:
                 impossibles.update({Value.BLACK})
@@ -150,4 +173,7 @@ class Puzzle():
         if self.solver_details.use_symmetry:
             if self.puzzle_details.symmetry.can_place(self.grid.pointer) is False:
                 impossibles.update({Value.BLACK})
+
+        # Return the difference between all possible options, and what is impossible
+        # Leaving only possible options.
         return OPTIONS.difference(impossibles)

@@ -1,5 +1,9 @@
 from value import Value
 
+# The exclusion table is used to help determine which values are possible for a single square.
+# When used in the Puzzle.check_options(), it analyzes each of the neighbors, one at a time,
+# and determines what is NOT possible for that specific configuration.
+
 EXCLUSION_TABLE = {
     'U1': {
         Value.BLACK: {Value.ACROSS, Value.EMPTY},

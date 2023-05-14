@@ -1,6 +1,18 @@
 
 class Converter():
+    """Converts back and forth between clue numbers and a useable format"""
+
     def process_cluestring(self, across_nums, down_nums):
+        """
+        Processes the lists of across and down numbers and returns a clue string.
+
+        Parameters:
+            across_nums (list): A list of integers representing the across clue numbers.
+            down_nums (list): A list of integers representing the down clue numbers.
+
+        Returns:
+            str: A string representation of the clue set.
+        """
         total_clues = max(across_nums)
         cluestring = ''
         for num in range(1, total_clues+1):
@@ -14,8 +26,17 @@ class Converter():
                 raise IndexError
         return cluestring
 
-    # Not currently using
     def unprocess_cluestring(self, cluestring):
+        """
+        Processes the input clue string and returns lists of across and down numbers.
+
+        Parameters:
+            cluestring (str): A string representation of the clue set.
+
+        Returns:
+            tuple: A tuple containing two lists of integers representing
+                the across and down clue numbers.
+        """
         index = 1
         across_nums = []
         down_nums = []
