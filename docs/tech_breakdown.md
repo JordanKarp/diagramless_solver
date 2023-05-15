@@ -37,12 +37,12 @@ For example, if direcly above the pointer (U1) there is a black square, then it 
 
 A point to note, this exclusion table ONLY looks at the pointer and that specific neighbor, one at a time. So if U2 is black, it does not check what U1 is when determining what is 'impossble'. Because of this, some of the values in this lookup table are empty, meaning that that configuration does not restrict the pointer's possible values.
 
-Puzzle.check_options() continues through every one of the possible neighbors (U1, U2, U3, D1, D2, D3, L1, L2, L3, R1, R2, R3), building a set of impossible values for that square
+Puzzle.check_options() continues through every one of the possible pointer neighbors (Up 1, Up 2, Up 3, Down 1, Down 2, Down 3, Left 1, Left 2, Left 3, Right 1, Right 2, Right 3), building a set of impossible values for that square
 
 Some other restrictions are added to the square at this point:
 - Prevent a full row of black squares.
 - Prevent a full column of black squares.
-- If symmetry is enforced and not in the 'can-place' zone prevent a black square from being placed.
+- If symmetry is enforced and not in the 'can-place' zone, prevent a black square from being placed.
 
 Then the difference between these impossible values and all values results in only the possible values left.
 
@@ -50,24 +50,29 @@ The exclusion table is a bit of a misnomer, as it is actually a dictionary, but 
 
 
 ## Puzzle
-Puzzle is the main solving engine, and Puzzle.solve() handles the main logic. At a very basic level, it goes through each square, placing the correct value (as determined by the Puzzle.check_options() and the exclusion table). If there are two possible values, it will always be a black square and some other value. A this point the solver will mark a backtracking point, and continue on solving with the other value. This will proceed until there are no possible options, or the puzzle is correct.
+Puzzle is the main solving engine, and Puzzle.solve() handles the main algorithm logic. 
 
-The basic algorithm within Puzzle.solve() is outlined below:
+At a very basic level, it goes through each square, placing the correct value (as determined by the Puzzle.check_options() and the exclusion table). If there are two possible values, it will always be a black square and some other value. A this point the solver will mark a backtracking point, and continue on solving with the other value. This will proceed until there are no possible options, or the puzzle is correct.
+
+The basic psuedocode within Puzzle.solve() is outlined below:
         - While still solving:
-            - Increment to the next square
-            - If end of puzzle:
+            - Increment to the next square.
+            - If at the end of puzzle:
                 - If correct, add solution.
-                - If incorrect, backgrack.
+                - If incorrect, backtrack to previous position.
             - Check possibilities for current square.
-            - If there are 0 options, backtrack.
-            - If there are 2 options, mark a backtrack spot and keep going.
+            - If there are 0 options, backtrack to previous position.
+            - If there are 2 options, mark a backtracking spot and keep going with other option.
             - If there is 1 option:
                 - If it's an empty or a black, place it.
                 - If it's a clue :
                     - If it's correct, place it.
                     - If it's incorrect, backtrack.
 
+If the puzzles earching for every solution, it will exit this loop once there are no more backtracking spots. Otherwise it will exit after the first solution.
+
 Within the Puzzle class, there are few other methods:
+
 | Method | Explaination |
 | --- | --- |
 | implement_starting_squares() | If enforced, this will pre-pend the correct values: Black values until the given starting square, then add an Across and Down value. If this is not enforced, adjust the pointer slightly (so that the 'increment to the next square' puts you at the first square). |
@@ -82,7 +87,23 @@ When symmetry is enforced, it tends to speed up the process signficantly. For ea
 So in order to speed up the process during solving, for each type of symmetry we need to determine two different 'zones', one where we place black squares and one where ONLY symmetrically mirrored squares are placed based on the first zone. If the pointer is in the 'can place' zone, then it will place a black square in that zone, and the corresponding black squares in the symetrical location(s).
 
 Each type of symmetry has their own class, initialized with the size of the grid. Each of these classes have two methods:
+
 | Method | Explaination |
 | --- | --- |
 | can_place(pointer) | returns True or False if the pointer is in the 'can place' zone, the first zone described above. |
 | sym_pointer(pointer) | returns a list of the corresponding symmetrical location(s) for the given pointer. |
+
+
+This solver allows for a few different kinds of symmetry, laid out here:
+
+| Type | Explaination |
+|---|---|
+| Rotational | Also known as Standard Crossword Symmetry or 180˚ Rotational Symmetry, every white and black square has a counterpart by spinning a half turn about it's central point. |
+| Left Right | Also known as mirror symmetry, every white and black square has a counterpart across the puzzle's central vertical axis. |
+| Up Down | Every white and black square has a counterpart across the puzzle's central horizontal axis. |
+| Diagonal (Top Left Start) | Every white and black square has a mirror counterpart across the puzzle's diagonal axis, from the top left to the bottom right. |
+| Diagonal (Top Right Start) | Every white and black square has a mirror counterpart across the puzzle's diagonal axis, from the top right to the bottom left. |
+| Dual Rotational | Building on Rotational Symmetry, every white and black square has counterparts by spinning a quarter turn, a half turn, and a three quarter turn about it's central point. |
+| Three Way | Left Right, Up Down and Rotational Symmetries, all combined. With the exception of the central row and column, every white and black square has three symmetrical counterparts. |
+| Super | Left Right, Up Down, Rotational, Dual Rotational and both Diagonal Symmetries, all combined. |
+| Asymmetry | No Symmetry. |

@@ -16,7 +16,7 @@ class ClueSet():
             clue_pointer (int): The current pointer number.
         """
         self.clue_string = raw_clue_string
-        self.clueset = self.process_clueset(self.clue_string)
+        self.clueset = self.cluestring_into_values()
         self.clue_pointer = 0
 
     def equals(self, value):
@@ -50,19 +50,15 @@ class ClueSet():
         """
         return self.clueset[self.clue_pointer]
 
-    def process_clueset(self, clue_string):
+    def cluestring_into_values(self):
         """
         Processes the input clue string and converts it to a list of Value objects.
-
-        Parameters:
-            clue_string (str): The input clue string to be processed.
 
         Returns:
             list: A list of Value objects corresponding to the input clue string.
         """
-        pre_process = list(clue_string)
         new_clueset = []
-        for letter in pre_process:
+        for letter in self.clue_string:
             if letter == "Z":
                 new_clueset.append(Value.ACROSSDOWN)
             elif letter == "A":
