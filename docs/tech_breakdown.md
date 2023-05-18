@@ -79,7 +79,7 @@ Within the Puzzle class, there are few other methods:
 | mark_backtrack_spot() | Adds the current pointer to a list of spots (splits) where there were multiple options for a single square. |
 | backtrack() | Grab the most recently added backtrack spot, and undo the puzzle up until that point. Then add a black square (instead of whatever value was first implemented) and continue on. |
 | set_black_square() | This will place a black square at the pointer. It will also check if symmetry is enforced, and that the pointer is in the 'can place' zone. If so, it will place black squares in the corresponding symetrical location(s). |
-| check_options() | described above, is meant to return all the possible options for a single square based on the current grid values. }
+| check_options() | described above, is meant to return all the possible options for a single square based on the current grid values. |
 
 ## Symmetry
 When symmetry is enforced, it tends to speed up the process signficantly. For each black square placed, the solver will be able to place one (or more) symmetrical black squares as well.

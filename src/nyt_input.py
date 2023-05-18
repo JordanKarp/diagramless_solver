@@ -8,9 +8,11 @@ from details import PuzzleDetails
 from util import is_num_between
 from value import SYMMETRIES
 
+BASE_URL = 'https://raw.githubusercontent.com/doshea/nyt_crosswords/master/'
+
 
 class NYTPuzzleInput():
-    '''Access github of archived NYT crossword puzzles, and pull the needed info into the solver'''
+    '''Access Github of archived NYT crossword puzzles, and pull the needed info into the solver'''
 
     def run(self):
         while active:
@@ -29,6 +31,7 @@ class NYTPuzzleInput():
             quit()
 
     def get_user_puzzle_date(self):
+        """Prompt the user for a certain puzzle date"""
         while True:
             try:
                 print('Please enter a numeric date between 1/1/1977 - 12/31/2018')
@@ -48,10 +51,10 @@ class NYTPuzzleInput():
                 return (str(month).zfill(2), str(day).zfill(2), str(year))
 
     def pull_puzzle(self, date):
+        """Pull the puzzle from the archive"""
         try:
             month, day, year = date
-            BASE = 'https://raw.githubusercontent.com/doshea/nyt_crosswords/master/'
-            URL = f'{BASE}{year}/{month.zfill(2)}/{day.zfill(2)}.json'
+            URL = f'{BASE_URL}{year}/{month.zfill(2)}/{day.zfill(2)}.json'
             response = requests.get(URL)
             # print(response.status_code)
             response.raise_for_status()
@@ -62,6 +65,7 @@ class NYTPuzzleInput():
             return response.json()
 
     def parse_puzzle(self, puzzle_json):
+        """Parse the important information from the JSON of the puzzle."""
         p = puzzle_json
 
         # Get dimensions
@@ -86,4 +90,5 @@ class NYTPuzzleInput():
             i += 1
         starting_square = i + 1
 
+        # Return details
         return PuzzleDetails((rows, cols), cluestring, symmetry, starting_square)

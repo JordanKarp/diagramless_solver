@@ -17,6 +17,7 @@ class PuzzleInput():
         return PuzzleDetails(dimensions, cluestring, symmetry, starting_square)
 
     def get_dimensions(self):
+        """Prompt the user for the puzzle dimensions: rows and columns"""
         while True:
             try:
                 rows = int(input("Number of Rows: "))
@@ -32,6 +33,7 @@ class PuzzleInput():
                 return (rows, cols)
 
     def get_cluestring(self):
+        """Prompt the user for the puzzle across and down numbers, and convert to cluestring"""
         while True:
             try:
                 across_nums = [int(x) for x in input(
@@ -46,6 +48,7 @@ class PuzzleInput():
                 return cluestring
 
     def get_symmetry(self):
+        """Prompt the user for the puzzle symmetry."""
         while True:
             try:
                 sym_string = input("Type of Symmetry: ")
@@ -53,6 +56,7 @@ class PuzzleInput():
                     raise ValueError
             except ValueError:
                 print("Invalid input. Please try again!")
+                # If the user messes up the symmetries, list the options before trying again.
                 for sym in SYMMETRIES:
                     print(sym, end=', ')
                 print()
@@ -60,6 +64,7 @@ class PuzzleInput():
                 return SYMMETRIES[sym_string]
 
     def get_starting_square(self):
+        """Prompt the user for the puzzle starting square."""
         while True:
             try:
                 sq = int(input("Starting square: "))
