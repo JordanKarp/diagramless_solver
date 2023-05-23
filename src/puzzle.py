@@ -5,7 +5,7 @@ from solutions import Solutions
 from util import clear_terminal
 from value import Value, OPTIONS, CLUES
 
-DEFAULT_DEBUG_COUNT = 1_000_000
+DEFAULT_PRINT = 1_000_000
 
 
 class Puzzle:
@@ -81,10 +81,7 @@ class Puzzle:
                     else:
                         self.backtrack()
 
-            if (
-                self.solver_details.debug
-                or self.squares_checked % DEFAULT_DEBUG_COUNT == 0
-            ):
+            if self.solver_details.debug or self.squares_checked % DEFAULT_PRINT == 0:
                 self.debug_print()
         self.solutions.end_timer(self.squares_checked)
         return self.solutions
