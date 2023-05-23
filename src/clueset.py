@@ -1,7 +1,7 @@
 from value import Value
 
 
-class ClueSet():
+class ClueSet:
     """Responsible for keeping track of a clue pointer, as well as the associated clue Value."""
 
     def __init__(self, raw_clue_string):

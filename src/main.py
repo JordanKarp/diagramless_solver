@@ -16,6 +16,6 @@ class SolverApp:
         solutions.print_solutions()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     solver = SolverApp()
     solver.run()

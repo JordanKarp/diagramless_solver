@@ -5,6 +5,8 @@ from util import clear_terminal
 
 
 class Solutions:
+    """A Terminal based printout of the solutions of a given diagramless puzzle."""
+
     def __init__(self, puzzle_details, solver_details):
         self.puzzle_details = puzzle_details
         self.solver_details = solver_details
@@ -31,35 +33,34 @@ class Solutions:
 
     def print_solutions(self):
         clear_terminal()
-        text = 'Results' + '\n'
+        text = "Results" + "\n"
 
-        text += '-' * 7 + '\n'
+        text += "-" * 7 + "\n"
         # Puzzle Details
         for k, v in self.puzzle_details.__dict__.items():
-            detail = k.title().replace('_', ' ').ljust(20)
-            text += f'{detail}: {v}' + '\n'
+            detail = k.title().replace("_", " ").ljust(20)
+            text += f"{detail}: {v}" + "\n"
 
         # Puzzle Clue numbers
         acc, down = unprocess_cluestring(self.puzzle_details.clue_string)
-        text += f'{"Across Numbers".ljust(20)}: {" ".join(str(x) for x in acc)}' + '\n'
-        text += f'{"Down Numbers".ljust(20)}: {" ".join(str(x) for x in down)}' + '\n'
+        text += f'{"Across Numbers".ljust(20)}: {" ".join(str(x) for x in acc)}' + "\n"
+        text += f'{"Down Numbers".ljust(20)}: {" ".join(str(x) for x in down)}' + "\n"
 
         # Solver details
-        text += '-' + '\n'
+        text += "-" + "\n"
         for k, v in self.solver_details.__dict__.items():
-            detail = k.title().replace('_', ' ').ljust(20)
-            text += f'{detail}: {v}' + '\n'
+            detail = k.title().replace("_", " ").ljust(20)
+            text += f"{detail}: {v}" + "\n"
 
-        text += '-' * 7 + '\n'
+        text += "-" * 7 + "\n"
         # Solver totals
-        text += f'{"Total checked".ljust(20)}: {self.total_checked:,} ' + '\n'
-        text += f'{"Total time".ljust(20)}: {self.end_time} seconds.' + '\n'
-        text += f'{"Total solution(s)".ljust(20)}: {len(self.list):,}' + \
-            '\n' + '\n'
+        text += f'{"Total checked".ljust(20)}: {self.total_checked:,} ' + "\n"
+        text += f'{"Total time".ljust(20)}: {self.end_time} seconds.' + "\n"
+        text += f'{"Total solution(s)".ljust(20)}: {len(self.list):,}' + "\n" + "\n"
 
         for num, (puz, debug_counter, elapsed_time) in enumerate(self.list, 1):
-            text += f'{num}: {elapsed_time} seconds' + '\n'
-            text += f'{debug_counter:,} squares checked.' + '\n'
-            text += f'{puz}' + '\n'
+            text += f"{num}: {elapsed_time} seconds" + "\n"
+            text += f"{debug_counter:,} squares checked." + "\n"
+            text += f"{puz}" + "\n"
 
         print(text)

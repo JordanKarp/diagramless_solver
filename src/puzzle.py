@@ -5,20 +5,22 @@ from solutions import Solutions
 from util import clear_terminal
 from value import Value, OPTIONS, CLUES
 
+DEFAULT_DEBUG_COUNT = 1_000_000
 
-class Puzzle():
-    '''
+
+class Puzzle:
+    """
     Puzzle - Responsible for the actual solving/builing of a diagramless crossword puzzle.
-    '''
+    """
 
     def __init__(self, puzzle_details, solver_details):
-        '''
+        """
         Initializes a Puzzle object.
 
         Parameters:
             puzzle_details (PuzzleDetails): Details of the puzzle to be solved.
             solver_details (SolverDetails): Details of the solver to be used.
-        '''
+        """
         self.puzzle_details = puzzle_details
         self.solver_details = solver_details
         self.grid = Grid(self.puzzle_details.size)
@@ -29,20 +31,22 @@ class Puzzle():
         self.squares_checked = 0
 
     def solve(self):
-        print('Processing.')
+        print("Processing.")
         self.solutions.start_timer()
 
         self.implement_starting_squares()
-        while (self.solving):
+        while self.solving:
             self.grid.increment()
             self.squares_checked += 1
 
             if self.grid.is_end_of_grid():
                 if self.clues.equals(Value.FINAL):
-                    if self.solver_details.use_interconnected:
-                        if not self.grid.is_interconnected():
-                            self.backtrack()
-                            continue
+                    if (
+                        self.solver_details.use_interconnected
+                        and not self.grid.is_interconnected()
+                    ):
+                        self.backtrack()
+                        continue
                     self.solutions.add(self, self.squares_checked)
                     if not self.solver_details.find_all:
                         self.solving = False
@@ -77,24 +81,28 @@ class Puzzle():
                     else:
                         self.backtrack()
 
-            if self.solver_details.debug or self.squares_checked % 1_000_000 == 0:
-                clear_terminal()
-                print('In progress:')
-                print(self.grid.return_grid())
-                print(f'Grid: {self.grid.pointer}')
-                print(
-                    f'Clue: {self.clues.clue_pointer} - {self.clues.at()}')
-                print(f'Splits: {len(self.splits)}')
-                print(f'Squares Checked: {self.squares_checked:,}')
-                print(f'Solutions: {len(self.solutions.list)}')
-
+            if (
+                self.solver_details.debug
+                or self.squares_checked % DEFAULT_DEBUG_COUNT == 0
+            ):
+                self.debug_print()
         self.solutions.end_timer(self.squares_checked)
         return self.solutions
 
+    def debug_print(self):
+        clear_terminal()
+        print("In progress:")
+        print(self.grid.return_grid())
+        print(f"Grid: {self.grid.pointer}")
+        print(f"Clue: {self.clues.clue_pointer} - {self.clues.at()}")
+        print(f"Splits: {len(self.splits)}")
+        print(f"Squares Checked: {self.squares_checked:,}")
+        print(f"Solutions: {len(self.solutions.list)}")
+
     def implement_starting_squares(self):
-        '''
+        """
         Set the first few squares manually, if using starting square.
-        '''
+        """
 
         # Trick to start at the correct square if we're not using the starting square info
         if not self.solver_details.use_starting_square:
@@ -109,7 +117,7 @@ class Puzzle():
         self.clues.increment()
 
     def mark_backtrack_point(self):
-        '''Mark the spot where there are two potential options, for backtracking later on.'''
+        """Mark the spot where there are two potential options, for backtracking later on."""
         self.splits.append((self.grid.pRow, self.grid.pCol))
 
     def backtrack(self):
@@ -126,39 +134,42 @@ class Puzzle():
             if cur_val in CLUES:
                 self.clues.decrement()
             if cur_val is Value.BLACK and self.solver_details.use_symmetry:
-                if self.puzzle_details.symmetry.can_place(self.grid.pointer):
-                    for pointer in self.puzzle_details.symmetry.sym_pointer(self.grid.pointer):
-                        self.grid.set_at(Value.UNKNOWN, pointer)
-                else:
+                if not self.puzzle_details.symmetry.can_place(self.grid.pointer):
                     continue
+                for pointer in self.puzzle_details.symmetry.sym_pointer(
+                    self.grid.pointer
+                ):
+                    self.grid.set_at(Value.UNKNOWN, pointer)
             self.grid.set(Value.UNKNOWN)
 
         # Place a black square and proceed.
         self.set_black_square()
 
     def set_black_square(self):
-        '''Set a black square, and potentially set the symmetrical square(s).'''
+        """Set a black square, and potentially set the symmetrical square(s)."""
         self.grid.set(Value.BLACK)
         if self.solver_details.use_symmetry:
             if self.puzzle_details.symmetry.can_place(self.grid.pointer):
-                for pointer in self.puzzle_details.symmetry.sym_pointer(self.grid.pointer):
+                for pointer in self.puzzle_details.symmetry.sym_pointer(
+                    self.grid.pointer
+                ):
                     self.grid.set_at(Value.BLACK, pointer)
 
     def check_options(self):
-        '''Check which options are impossible, given each individual neighbor configurations.'''
+        """Check which options are impossible, given each individual neighbor configurations."""
         impossibles = set()
-        impossibles.update(EXCLUSION_TABLE['U1'][self.grid.u1()])
-        impossibles.update(EXCLUSION_TABLE['U2'][self.grid.u2()])
-        impossibles.update(EXCLUSION_TABLE['U3'][self.grid.u3()])
-        impossibles.update(EXCLUSION_TABLE['D1'][self.grid.d1()])
-        impossibles.update(EXCLUSION_TABLE['D2'][self.grid.d2()])
-        impossibles.update(EXCLUSION_TABLE['D3'][self.grid.d3()])
-        impossibles.update(EXCLUSION_TABLE['L1'][self.grid.l1()])
-        impossibles.update(EXCLUSION_TABLE['L2'][self.grid.l2()])
-        impossibles.update(EXCLUSION_TABLE['L3'][self.grid.l3()])
-        impossibles.update(EXCLUSION_TABLE['R1'][self.grid.r1()])
-        impossibles.update(EXCLUSION_TABLE['R2'][self.grid.r2()])
-        impossibles.update(EXCLUSION_TABLE['R3'][self.grid.r3()])
+        impossibles.update(EXCLUSION_TABLE["U1"][self.grid.u1()])
+        impossibles.update(EXCLUSION_TABLE["U2"][self.grid.u2()])
+        impossibles.update(EXCLUSION_TABLE["U3"][self.grid.u3()])
+        impossibles.update(EXCLUSION_TABLE["D1"][self.grid.d1()])
+        impossibles.update(EXCLUSION_TABLE["D2"][self.grid.d2()])
+        impossibles.update(EXCLUSION_TABLE["D3"][self.grid.d3()])
+        impossibles.update(EXCLUSION_TABLE["L1"][self.grid.l1()])
+        impossibles.update(EXCLUSION_TABLE["L2"][self.grid.l2()])
+        impossibles.update(EXCLUSION_TABLE["L3"][self.grid.l3()])
+        impossibles.update(EXCLUSION_TABLE["R1"][self.grid.r1()])
+        impossibles.update(EXCLUSION_TABLE["R2"][self.grid.r2()])
+        impossibles.update(EXCLUSION_TABLE["R3"][self.grid.r3()])
 
         # If end of a row, make sure it's a valid row (not all blacks)
         if self.grid.is_end_of_row():

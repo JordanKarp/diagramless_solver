@@ -1,5 +1,3 @@
-
-
 def process_cluestring(across_nums, down_nums):
     """
     Processes the lists of across and down numbers and returns a clue string.
@@ -12,14 +10,14 @@ def process_cluestring(across_nums, down_nums):
         str: A string representation of the clue set.
     """
     total_clues = max(across_nums)
-    cluestring = ''
-    for num in range(1, total_clues+1):
+    cluestring = ""
+    for num in range(1, total_clues + 1):
         if num in across_nums and num in down_nums:
-            cluestring += 'Z'
+            cluestring += "Z"
         elif num in across_nums:
-            cluestring += 'A'
+            cluestring += "A"
         elif num in down_nums:
-            cluestring += 'D'
+            cluestring += "D"
         else:
             raise IndexError
     return cluestring
@@ -36,13 +34,11 @@ def unprocess_cluestring(cluestring):
         tuple: A tuple containing two lists of integers representing
             the across and down clue numbers.
     """
-    index = 1
     across_nums = []
     down_nums = []
-    for char in cluestring:
-        if char in ['Z', 'A']:
+    for index, char in enumerate(cluestring, start=1):
+        if char in ["Z", "A"]:
             across_nums.append(index)
-        if char in ['Z', 'D']:
+        if char in ["Z", "D"]:
             down_nums.append(index)
-        index += 1
     return across_nums, down_nums

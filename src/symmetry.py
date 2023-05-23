@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class Symmetry(ABC):
-    """ Abstract base class for defining the structure of Symmetry."""
+    """Abstract base class for defining the structure of Symmetry."""
 
     def __init__(self, name):
-        """ Initializes the Symmetry object.
+        """Initializes the Symmetry object.
 
         Args:
             name (str): The name of the Symmetry object.
@@ -27,7 +27,7 @@ class Symmetry(ABC):
 
     @abstractmethod
     def sym_pointer(self):
-        """ Returns the symmetrical pointer(s) for a given pointer in a list.
+        """Returns the symmetrical pointer(s) for a given pointer in a list.
 
         Args:
             pointer (tuple[int, int]): The (row, col) index of the pointer.
@@ -38,7 +38,7 @@ class Symmetry(ABC):
         pass
 
     def __repr__(self):
-        """ Returns the name of the Symmetry object.
+        """Returns the name of the Symmetry object.
 
         Returns:
             str: The name of the Symmetry object.
@@ -50,6 +50,7 @@ class Asymmetry(Symmetry):
     """
     No symmetry
     """
+
     def __init__(self, dimensions):
         super().__init__("Asymmetry")
         self.rows, self.columns = dimensions
@@ -73,7 +74,7 @@ class LeftRightSym(Symmetry):
 
     def can_place(self, pointer):
         row_pointer, col_pointer = pointer
-        return col_pointer <= (self.columns-1) / 2
+        return col_pointer <= (self.columns - 1) / 2
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
@@ -92,11 +93,17 @@ class UpDownSym(Symmetry):
 
     def can_place(self, pointer):
         row_pointer, col_pointer = pointer
-        return row_pointer < (self.columns-1) / 2
+        return row_pointer <= (self.rows - 1) / 2
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
         return [(self.rows - 1 - row_pointer, col_pointer)]
+
+
+# uds = UpDownSym((9,9))
+# pointer = (4,8)
+# print(uds.can_place(pointer))
+# print(uds.sym_pointer(pointer))
 
 
 class RotationalSym(Symmetry):
@@ -117,15 +124,15 @@ class RotationalSym(Symmetry):
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
-        return [(self.rows - 1 - row_pointer,
-                 self.columns - 1 - col_pointer)]
+        return [(self.rows - 1 - row_pointer, self.columns - 1 - col_pointer)]
 
 
-class DiagonalTLBRSym (Symmetry):
+class DiagonalTLBRSym(Symmetry):
     """
     Every white and black square has a mirror counterpart
     across the puzzle's diagonal axis, from the top left to the bottom right.
     """
+
     def __init__(self, dimensions):
         super().__init__("Diagonal TLBR")
         self.rows, self.columns = dimensions
@@ -144,6 +151,7 @@ class DiagonalTRBLSym(Symmetry):
     Every white and black square has a mirror counterpart
     across the puzzle's diagonal axis, from the top right to the bottom left.
     """
+
     def __init__(self, dimensions):
         super().__init__("Diagonal TRBL")
         self.rows, self.columns = dimensions
@@ -154,8 +162,7 @@ class DiagonalTRBLSym(Symmetry):
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
-        return [(self.columns - 1 - col_pointer,
-                 self.rows - 1 - row_pointer)]
+        return [(self.columns - 1 - col_pointer, self.rows - 1 - row_pointer)]
 
 
 class DualRotationalSym(Symmetry):
@@ -164,24 +171,31 @@ class DualRotationalSym(Symmetry):
     has counterparts by spinning a quarter turn, a half turn,
     and a three quarter turn about it's central point.
     """
+
     def __init__(self, dimensions):
         super().__init__("Dual Rotational")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
         row_pointer, col_pointer = pointer
-        if (row_pointer <= (self.rows - 1) / 2) and col_pointer <= (self.columns - 1) / 2:
+        if (row_pointer <= (self.rows - 1) / 2) and col_pointer <= (
+            self.columns - 1
+        ) / 2:
             return row_pointer <= col_pointer
-        elif (row_pointer <= ((self.rows - 1) / 2) - 1) and col_pointer >= (self.columns - 1) / 2:
+        elif (row_pointer <= ((self.rows - 1) / 2) - 1) and col_pointer >= (
+            self.columns - 1
+        ) / 2:
             return self.columns - col_pointer - 1 > row_pointer
         else:
             return False
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
-        return [(col_pointer, self.rows - 1 - row_pointer),
-                (self.rows - 1 - row_pointer, self.columns - 1 - col_pointer),
-                (self.columns - 1 - col_pointer, row_pointer)]
+        return [
+            (col_pointer, self.rows - 1 - row_pointer),
+            (self.rows - 1 - row_pointer, self.columns - 1 - col_pointer),
+            (self.columns - 1 - col_pointer, row_pointer),
+        ]
 
 
 class ThreeWaySym(Symmetry):
@@ -197,16 +211,17 @@ class ThreeWaySym(Symmetry):
 
     def can_place(self, pointer):
         row_pointer, col_pointer = pointer
-        if (row_pointer <= (self.rows - 1) / 2) and col_pointer <= (self.columns - 1) / 2:
-            return True
-        else:
-            return False
+        return (
+            row_pointer <= (self.rows - 1) / 2 and col_pointer <= (self.columns - 1) / 2
+        )
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
-        return [(row_pointer, self.columns - 1 - col_pointer),
-                (self.rows - 1 - row_pointer, self.columns - 1 - col_pointer),
-                (self.rows - 1 - row_pointer, col_pointer)]
+        return [
+            (row_pointer, self.columns - 1 - col_pointer),
+            (self.rows - 1 - row_pointer, self.columns - 1 - col_pointer),
+            (self.rows - 1 - row_pointer, col_pointer),
+        ]
 
 
 class SuperSym(Symmetry):
@@ -214,23 +229,28 @@ class SuperSym(Symmetry):
     Left Right, Up Down, Rotational, Dual Rotational
     and both Diagonal Symmetries, all combined.
     """
+
     def __init__(self, dimensions):
         super().__init__("Super")
         self.rows, self.columns = dimensions
 
     def can_place(self, pointer):
         row_pointer, col_pointer = pointer
-        if (row_pointer <= (self.rows - 1) / 2) and col_pointer <= (self.columns - 1) / 2:
+        if (row_pointer <= (self.rows - 1) / 2) and col_pointer <= (
+            self.columns - 1
+        ) / 2:
             return row_pointer <= col_pointer
         else:
             return False
 
     def sym_pointer(self, pointer):
         row_pointer, col_pointer = pointer
-        return [(row_pointer, self.columns - 1 - col_pointer),
-                (col_pointer, self.rows - 1 - row_pointer),
-                (self.columns - 1 - col_pointer, self.rows - 1 - row_pointer),
-                (self.rows - 1 - row_pointer, self.columns - 1 - col_pointer),
-                (self.rows - 1 - row_pointer, col_pointer),
-                (self.columns - 1 - col_pointer, row_pointer),
-                (col_pointer, row_pointer)]
+        return [
+            (row_pointer, self.columns - 1 - col_pointer),
+            (col_pointer, self.rows - 1 - row_pointer),
+            (self.columns - 1 - col_pointer, self.rows - 1 - row_pointer),
+            (self.rows - 1 - row_pointer, self.columns - 1 - col_pointer),
+            (self.rows - 1 - row_pointer, col_pointer),
+            (self.columns - 1 - col_pointer, row_pointer),
+            (col_pointer, row_pointer),
+        ]

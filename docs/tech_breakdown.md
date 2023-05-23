@@ -23,14 +23,15 @@
 | value.py | contains an Enum of the different options for a single square, along with a few other list related constants. |
 
 ## Grid
+
 The Grid class is responsible initializing the grid with unknown values, holding all of the updated values in the grid, as well as tracking which square we are currently analyzing (known as the pointer). In the code, the pRow and the pCol represent the pointer's row and column for readability, but are combined as a tuple (through the @property).
 
 The grid is stored in the Grid.grid dictionary, with the pointer being the key. This takes advantage of both the quicker lookup and default values for when the pointer is 'off the grid.'
 
 There are also a few other functions to help the pointer increment and decrement, to help determine if the pointer is at the end of a row, end of a column, or end of the puzzle, and to return all of the values in a particular row or column. Many of these functions are used later to ensure that there are no full rows or columns of black squares.
 
-
 ## Exclusion Table and Puzzle.check_options()
+
 The exclusion table is used to help determine which values are possible for a single square. When used in the Puzzle.check_options(), it analyzes each of the neighbors, one at a time, and determines what is NOT possible for that specific configuration.
 
 For example, if direcly above the pointer (U1) there is a black square, then it is impossible for the pointer to be an across clue or an empty square, based on the rules of crossword puzzles.
@@ -40,6 +41,7 @@ A point to note, this exclusion table ONLY looks at the pointer and that specifi
 Puzzle.check_options() continues through every one of the possible pointer neighbors (Up 1, Up 2, Up 3, Down 1, Down 2, Down 3, Left 1, Left 2, Left 3, Right 1, Right 2, Right 3), building a set of impossible values for that square
 
 Some other restrictions are added to the square at this point:
+
 - Prevent a full row of black squares.
 - Prevent a full column of black squares.
 - If symmetry is enforced and not in the 'can-place' zone, prevent a black square from being placed.
@@ -48,9 +50,9 @@ Then the difference between these impossible values and all values results in on
 
 The exclusion table is a bit of a misnomer, as it is actually a dictionary, but this was just done to decrease time complexity.
 
-
 ## Puzzle
-Puzzle is the main solving engine, and Puzzle.solve() handles the main algorithm logic. 
+
+Puzzle is the main solving engine, and Puzzle.solve() handles the main algorithm logic.
 
 At a very basic level, it goes through each square, placing the correct value (as determined by the Puzzle.check_options() and the exclusion table). If there are two possible values, it will always be a black square and some other value. A this point the solver will mark a backtracking point, and continue on solving with the other value. This will proceed until there are no possible options, or the puzzle is correct.
 
@@ -82,6 +84,7 @@ Within the Puzzle class, there are few other methods:
 | check_options() | described above, is meant to return all the possible options for a single square based on the current grid values. |
 
 ## Symmetry
+
 When symmetry is enforced, it tends to speed up the process signficantly. For each black square placed, the solver will be able to place one (or more) symmetrical black squares as well.
 
 So in order to speed up the process during solving, for each type of symmetry we need to determine two different 'zones', one where we place black squares and one where ONLY symmetrically mirrored squares are placed based on the first zone. If the pointer is in the 'can place' zone, then it will place a black square in that zone, and the corresponding black squares in the symetrical location(s).
@@ -92,7 +95,6 @@ Each type of symmetry has their own class, initialized with the size of the grid
 | --- | --- |
 | can_place(pointer) | returns True or False if the pointer is in the 'can place' zone, the first zone described above. |
 | sym_pointer(pointer) | returns a list of the corresponding symmetrical location(s) for the given pointer. |
-
 
 This solver allows for a few different kinds of symmetry, laid out here:
 

@@ -23,18 +23,24 @@ class PuzzleLibrary:
 
     def run(self):
         """Show the library, and allow the user to chose a puzzle from the options."""
+        # source = self.pick_source()
+        # self.show_library(source)
+
         self.show_library()
         size, clues, sym_str, start = self.choose_puzzle()
         return PuzzleDetails(size, clues, SYMMETRIES[sym_str], start)
 
+    def pick_source(self):
+        pass
+
     def load_puzzle_list(self, file_path):
-        '''Open the puzzle.csv file and print out the possible puzzle choices'''
+        """Open the puzzle.csv file and print out the possible puzzle choices"""
         with open(file_path) as csvfile:
-            lib_file = csv.reader(csvfile, delimiter=',')
-            num_puzzles = 0
+            lib_file = csv.reader(csvfile, delimiter=",")
             puzzle_list = []
+            # num_puzzles = 0
             for row in lib_file:
-                num_puzzles += 1
+                # num_puzzles += 1
                 rows = int(row[0])
                 cols = int(row[1])
                 clue_str = row[2]
@@ -46,21 +52,22 @@ class PuzzleLibrary:
 
     def show_library(self):
         """Display puzzle library header and puzzle list"""
-        header = '\tSize \t\t  Sym \t\t  Start\t  Clues'
+        header = "\tSize \t\t  Sym \t\t  Start\t  Clues"
         print(header)
-        print('-' * len(header) * 2)
+        print("-" * len(header) * 2)
         for num, (size, clues, sym_str, start) in enumerate(self.puz_list, 1):
             print(
-                f'{num}.\t{size[0]}x{size[1]}\t| {sym_str.ljust(16)}\t| {start}\t| {clues}')
+                f"{num}.\t{size[0]}x{size[1]}\t| {sym_str.ljust(16)}\t| {start}\t| {clues}"
+            )
 
     def choose_puzzle(self):
         """Check for valid user input and return the chosen puzzle."""
         while True:
             try:
-                choice = int(input('Which puzzle? '))
+                choice = int(input("Which puzzle? "))
                 if not is_num_between(choice, 1, len(self.puz_list)):
                     raise ValueError
             except ValueError:
                 print("Invalid input. Please try again!")
             else:
-                return self.puz_list[int(choice)-1]
+                return self.puz_list[choice - 1]

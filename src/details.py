@@ -23,24 +23,26 @@ class PuzzleDetails:
 @dataclass
 class SolverDetails:
     """
-        Stores details about how the solver will build the crossword puzzle.
+    Stores details about how the solver will build the crossword puzzle.
 
-        Parameters:
-            use_symmetry (bool): Whether to use symmetry hint when generating the puzzle.
-            use_starting_square (tuple): Whether to use the starting square hint.
-            find_all (bool): Whether to find all solutions or just one.
-            use_interconnected (bool): Whether to only consider interconnected answers.
-            show_numbers (bool): Whether to show clue numbers in the output (or the clue Values).
-            debug (bool): Whether to print debug information.
+    Parameters:
+        use_symmetry (bool): Whether to use symmetry hint when generating the puzzle.
+        use_starting_square (tuple): Whether to use the starting square hint.
+        find_all (bool): Whether to find all solutions or just one.
+        use_interconnected (bool): Whether to only consider interconnected answers.
+        show_numbers (bool): Whether to show clue numbers in the output (or the clue Values).
+        debug (bool): Whether to print debug information.
     """
 
-    def __init__(self,
-                 use_symmetry=False,
-                 use_starting_square=None,
-                 find_all=False,
-                 use_interconnected=False,
-                 show_numbers=False,
-                 debug=False):
+    def __init__(
+        self,
+        use_symmetry=False,
+        use_starting_square=None,
+        find_all=False,
+        use_interconnected=False,
+        show_numbers=False,
+        debug=False,
+    ):
         self.use_symmetry = use_symmetry
         self.use_starting_square = use_starting_square
         self.find_all = find_all

@@ -4,11 +4,12 @@ from util import is_num_between
 from value import SYMMETRIES
 
 
-class PuzzleInput():
-    '''
+class PuzzleInput:
+    """
     A class to get the input data for a puzzle, including
     dimensions, cluestring, symmetry, and starting square.
-    '''
+    """
+
     def run(self):
         dimensions = self.get_dimensions()
         cluestring = self.get_cluestring()
@@ -36,10 +37,18 @@ class PuzzleInput():
         """Prompt the user for the puzzle across and down numbers, and convert to cluestring"""
         while True:
             try:
-                across_nums = [int(x) for x in input(
-                    'Input the Across clue numbers, separated by a space: ').split(' ')]
-                down_nums = [int(x) for x in input(
-                    'Input the Down clue numbers, separated by a space: ').split(' ')]
+                across_nums = [
+                    int(x)
+                    for x in input(
+                        "Input the Across clue numbers, separated by a space: "
+                    ).split(" ")
+                ]
+                down_nums = [
+                    int(x)
+                    for x in input(
+                        "Input the Down clue numbers, separated by a space: "
+                    ).split(" ")
+                ]
                 cluestring = process_cluestring(across_nums, down_nums)
 
             except ValueError:
@@ -58,7 +67,7 @@ class PuzzleInput():
                 print("Invalid input. Please try again!")
                 # If the user messes up the symmetries, list the options before trying again.
                 for sym in SYMMETRIES:
-                    print(sym, end=', ')
+                    print(sym, end=", ")
                 print()
             else:
                 return SYMMETRIES[sym_string]
