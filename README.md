@@ -7,7 +7,9 @@ A human diagramless crossword solver must deduce two things:
 1. The word answers to individual clues
 2. The locations to the specific clue numbers, shaded (BLACK) squares, and empty squares.
 
-## This builder tackles ONLY the second part, without considering clues or clue answers whatsoever, in order to build the entire crossword grid. It will soley look at the clue numbers and whether they are an Across (A) clue, a Down (D) clue, or both (Z)
+## This builder tackles ONLY the second part, without considering clues or clue answers whatsoever, in order to build the entire crossword grid
+
+It will soley look at the clue numbers and whether they are an Across (A) clue, a Down (D) clue, or both (Z)
 
 Look at the 3x3 and 4x4 puzzles as examples below, where the only info we have is the clues' orientation and the size of the grid:
 
