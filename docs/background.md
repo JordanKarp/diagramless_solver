@@ -14,11 +14,10 @@ I expanded. Added on starting squares, symmetry, and created a basic API that pu
 
 But it was my first major project so it had serious issues. The code was not organized well at all, it used very inefficient data structures, and it showed a lack of understanding of some core programming fundamentals. My brute force approach without proper  Additionally, my 'square logic' ran into edge cases that broke the system, and it was constantly running into issues or just running for hours without a solution.??
 
-Since then,I've been through several major changes at this point over the years.
- ??? what I tried and what I decided ???
+Since then, I've been through several major changes at this point over the years. I've learned the benefits different data structures which sped up the process significantly. I've learned object oriented programming and made my code much my readable. Rather than copying puzzles, I implemented backtracking for faster processing. I needed to check for 'board-connectivity', so added in a flood fill algorithm.
 
- I've made improvements to the structure and made major changes to the algorithm. I've tried a brute force approach. Tried treating it as a contstraint satisfaction problem. I've refactored and refactored and refactored and I know it needs more still.
+ I've made improvements to the structure and made major changes to the algorithm. I've tried a brute force approach. I've tried treating it as a contstraint satisfaction problem. I've refactored and refactored and refactored and I know it needs more still.
 
 However I've gotten it to the point where I can answer the quesitons my Grandpa had. Yes, it's possible. Sometimes there's only one solution, and sometimes there are hundreds or even tens of thousands of solutions.
 
-I've build other projects, and started to understand progamming much better, but the diagramless solver represents my biggest accomplishments and represetns the current state of my knowledge.?? Summarize the achievemet??. Although I'm no expert, I believe I'm at a great spot to continue learning and growing.
+I've build other projects, and started to understand progamming much better, but the diagramless solver represents my biggest accomplishments and represetns the current state of my knowledge. . Although I'm no expert, I believe I'm at a great spot to continue learning and growing.
