@@ -4,6 +4,7 @@ try:
     active = True
 except ImportError:
     active = False
+
 from converter import process_cluestring
 from details import PuzzleDetails
 from util import is_num_between
